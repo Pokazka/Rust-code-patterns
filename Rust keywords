@@ -1,0 +1,127 @@
+/* THREE CATEGORIES */
+strict 
+reserved
+weak
+
+/*
+ITEMS
+VARIABLES AND FUNC PARAMETERS
+FIELDS AND VARIANTS
+TYPE PARAMETERS
+LIFETIME PARAMETERS OR LOOP LABELS
+MACROS OR ATTRIBUTES
+MACRO PLACEHOLDERS
+CRATES
+*/
+
+/* STRICT */
+_                    // type constructor, got concrete type by substitutingin the anonymous lifetime _
+as                   // let x: u32 = 123 -> let x = 123 as u32, to turn primitive types into other primitive types, turning pointers into addresses, addresses into pointers, and pointerns into other pointers.
+async                // Returns a Future instead of blocking the current thread. Use async in front of fn, closure, or a block to turn the marked code into a Future. When the returned future is .awaited.
+await                // Suspend execution until the result of a Future is ready. .awaiting a future will suspend the current function’s execution until the executor has run the future to completion.
+break
+const
+continue
+crate                // Crate keyword is as a part of extern crate declarations, which are used to specify a dependency on a crate external to the one it’s declared in.
+dyn                  // dyn is a prefix of a trait object’s type. As such, a dyn Trait reference contains two pointers. One pointer goes to the data (e.g., an instance of a struct). Another pointer goes to a map of method call names to function pointers (known as a virtual method table or vtable).
+else
+enum
+extern
+false
+fn                   // A function or function pointer. 
+for
+if
+impl                 // Implementations of functionality for a type, or a type implementing some functionality. An impl block is an item that is used to implement some functionality for a type. An impl Trait in a type-position can be used to designate a type that implements a trait called Trait.
+in
+let                  // Bind a value to a variable. used to introduce a new set of variables into the current scope, as given by a pattern.
+loop                 // Loop is used to define the simplest kind of loop supported in Rust. It runs the code inside it until the code uses break or the program exits.
+match                // Match can be used to run code conditionally. Every pattern must be handled exhaustively either explicitly or by using wildcards like _ in the match. Since match is an expression, values can also be returned.
+mod                  // Use mod to create new modules to encapsulate code, including other modules
+move                 // Move converts any variables captured by reference or mutable reference to variables captured by value.
+mut                  // Mut can be used in several situations. The first is mutable variables, which can be used anywhere you can bind a value to a variable name.
+pub                  // Make an item visible to others.
+ref                  // Bind by reference during pattern matching. ref annotates pattern bindings to make them borrow rather than move. It is not a part of the pattern as far as matching is concerned: it does not affect whether a value is matched, only how it is matched.
+return
+self                 // The receiver of a method, or the current module. self is used in two situations: referencing the current module and marking the receiver of a method. In paths, self can be used to refer to the current module, either in a use statement or in a path to access an element
+Self                 // 
+static
+struct
+super                // The parent of the current module. It is also possible to use super multiple times: super::super::foo, going up the ancestor chain.
+trait                // A trait is like an interface that data types can implement. When a type implements a trait it can be treated abstractly as that trait using generics or trait objects.
+true
+type                 // Define an alias for an existing type. The syntax is type Name = ExistingType;.
+unsafe               // Code or interfaces whose memory safety cannot be verified by the type system. To declare the existence of contracts the compiler can’t check, and to declare that a programmer has checked that these contracts have been upheld.
+use                  // Import or rename items from other crates or modules, use values under ergonomic clones semantic, or specify precise capturing with use<..>.
+where                // Add constraints that must be upheld to use an item. Where allows specifying constraints on lifetime and generic parameters. The RFC introducing where contains detailed information about the keyword.
+while
+
+/* ADDED KEYWORDS */
+async
+await
+dyn
+
+/* RESERVED KEYWORDS */
+abstract
+become
+box
+do
+final
+gen
+macro
+override
+priv
+try
+typeof
+unsized
+virtual
+yield
+
+/* WEAK KEYWORDS */
+'static                  // is used for the static lifetime and cannot be used as a generic lifetime parameter or loop label
+macro_rules              // is used to create custom macros.
+raw                      (&raw const expr) (&raw mut expr)
+safe                     // is used for functions and statics, which has meaning in external blocks.
+union                    // is used to declare a union and is only a keyword when used in a union declaration.
+'
+
+/* IDENTIFIERS UNICODE STANDARD ANNEX */
+foo
+_identifier
+r#true
+Wrocław
+
+/* The profile used from UAX #31 */
+Start := XID_Start, plus the underscore character (U+005F)
+Continue := XID_Continue
+Medial := empty
+
+/* Identifiers are restricted to the ASCII subset of XID_Start and XID_Continue in the following situations */
+extern crate declarations (except the AsClause identifier)
+External crate names referenced in a path
+Module names loaded from the filesystem without a path attribute
+no_mangle attributed items
+Item names in external blocks
+
+// ~[/ ! ] | // ~LF*
+| //
+| //
+
+/* */
+
+//!
+
+/*!
+
+///
+
+/** ![* /]
+^
+~* | 
+( | )*
+*/
+
+/* WHITESPACE */
+// Horizontal tab '\t'
+// Line feed '\n'
+// Carriage return '\r'
+// Space ' '
