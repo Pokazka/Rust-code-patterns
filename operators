@@ -1,18 +1,18 @@
-fn(...) -> type, |…| -> type
+fn(...) -> type, |…| -> type // Function and closure return type
 
-expr.ident
+expr.ident // Field access
 
-expr.ident(expr, ...)
+expr.ident(expr, ...) // Method call
 
-expr.0, expr.1, and so on
+expr.0, expr.1, and so on // Tuple indexing
 
 .., expr.., ..expr, expr..expr // Right-exclusive range literal	PartialOrd
 
 ..=expr, expr..=expr // Right-inclusive range literal PartialOrd
 
-..expr	Struct literal update syntax
+..expr	// Struct literal update syntax
 
-variant(x, ..), struct_type { x, .. }	“And the rest” pattern binding
+variant(x, ..), struct_type { x, .. }	// “And the rest” pattern binding
 
 expr...expr // (Deprecated, use ..= instead) In a pattern: inclusive range pattern
 
@@ -22,87 +22,87 @@ ident: expr	// Struct field initializer
 
 'a: loop {...}	// Loop label
 
-expr;	Statement and item terminator
+expr; //	Statement and item terminator
 
-[...; len]	Part of fixed-size array syntax
+[...; len] //	Part of fixed-size array syntax
 
-ident @ pat	Pattern binding
+ident @ pat	// Pattern binding
 
-expr ^ expr	Bitwise exclusive OR	BitXor
+expr ^ expr	// Bitwise exclusive OR	BitXor
 
-var ^= expr	Bitwise exclusive OR and assignment	BitXorAssign
+var ^= expr	// Bitwise exclusive OR and assignment	BitXorAssign
 
-pat | pat	Pattern alternatives
+pat | pat	// Pattern alternatives
 
-?	expr?	Error propagation
+?	expr?	// Error propagation
 
-'ident
+'ident // Named lifetime or loop label
 
 Digits immediately followed by u8, i32, f64, usize, and so on
 
-"..."
+"..." // String literal
 
-r"...", r#"..."#, r##"..."##, and so on
+r"...", r#"..."#, r##"..."##, and so on // Raw string literal; escape characters not processed
 
-b"..."
+b"..." // Byte string literal; constructs an array of bytes instead of a string
 
-br"...", br#"..."#, br##"..."##, and so on
+br"...", br#"..."#, br##"..."##, and so on // Raw byte string literal; combination of raw and byte string literal
 
-'...'
+'...' // Character literal
 
-b'...'
+b'...' // ASCII byte literal
 
-|…| expr
+|…| expr // Closure
 
-!
+! // Always-empty bottom type for diverging functions
 
-_
+_ // “Ignored” pattern binding; also used to make integer literals readable
 
-ident::ident
+ident::ident // Namespace path
 
-::path
+::path // Path relative to the crate root (that is, an explicitly absolute path)
 
-self::path
+self::path // Path relative to the current module (that is, an explicitly relative path)
 
-super::path
+super::path // Path relative to the parent of the current module
 
-type::ident, <type as trait>::ident
+type::ident, <type as trait>::ident // Associated constants, functions, and types
 
-<type>::...
+<type>::... // Associated item for a type that cannot be directly named (for example, <&T>::..., <[T]>::..., and so on)
 
-trait::method(...)
+trait::method(...) // Disambiguating a method call by naming the trait that defines it
 
-type::method(...)
+type::method(...) // Disambiguating a method call by naming the type for which it’s defined
 
-<type as trait>::method(...)
+<type as trait>::method(...) // Disambiguating a method call by naming the trait and type
 
-path<...>
+path<...> // Specifies parameters to a generic type in a type (for example, Vec<u8>)
 
-path::<...>, method::<...>
+path::<...>, method::<...> // Specifies parameters to a generic type, function, or method in an expression; often referred to as turbofish (for example, "42".parse::<i32>())
 
-fn ident<...> ...
+fn ident<...> ... // Define generic function
 
-struct ident<...> ...
+struct ident<...> ... // Define generic structure
 
-enum ident<...> ...
+enum ident<...> ... // Define generic enumeration
 
-impl<...> ...
+impl<...> ... // Define generic implementation
 
-for<...> type
+for<...> type // Higher ranked lifetime bounds
 
-type<ident=type>
+type<ident=type> // A generic type where one or more associated types have specific assignments (for example, Iterator<Item=T>)
 
-T: U
+T: U // Generic parameter T constrained to types that implement U
 
-T: 'a
+T: 'a // Generic type T must outlive lifetime 'a (meaning the type cannot transitively contain any references with lifetimes shorter than 'a)
 
-T: 'static
+T: 'static // Generic type T contains no borrowed references other than 'static ones
 
-'b: 'a
+'b: 'a // Generic lifetime 'b must outlive lifetime 'a
 
-T: ?Sized
+T: ?Sized // Allow generic type parameter to be a dynamically sized type
 
-'a + trait, trait + trait
+'a + trait, trait + trait // Compound type constraint
 
 #[meta]	Outer attribute
 #![meta]	Inner attribute
