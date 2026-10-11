@@ -1,0 +1,129 @@
+fn(...) -> type, |…| -> type
+
+expr.ident
+
+expr.ident(expr, ...)
+
+expr.0, expr.1, and so on
+
+.., expr.., ..expr, expr..expr // Right-exclusive range literal	PartialOrd
+
+..=expr, expr..=expr // Right-inclusive range literal PartialOrd
+
+..expr	Struct literal update syntax
+
+variant(x, ..), struct_type { x, .. }	“And the rest” pattern binding
+
+expr...expr // (Deprecated, use ..= instead) In a pattern: inclusive range pattern
+
+pat: type, ident: type	// Constraints
+
+ident: expr	// Struct field initializer
+
+'a: loop {...}	// Loop label
+
+expr;	Statement and item terminator
+
+[...; len]	Part of fixed-size array syntax
+
+ident @ pat	Pattern binding
+
+expr ^ expr	Bitwise exclusive OR	BitXor
+
+var ^= expr	Bitwise exclusive OR and assignment	BitXorAssign
+
+pat | pat	Pattern alternatives
+
+?	expr?	Error propagation
+
+'ident
+
+Digits immediately followed by u8, i32, f64, usize, and so on
+
+"..."
+
+r"...", r#"..."#, r##"..."##, and so on
+
+b"..."
+
+br"...", br#"..."#, br##"..."##, and so on
+
+'...'
+
+b'...'
+
+|…| expr
+
+!
+
+_
+
+ident::ident
+
+::path
+
+self::path
+
+super::path
+
+type::ident, <type as trait>::ident
+
+<type>::...
+
+trait::method(...)
+
+type::method(...)
+
+<type as trait>::method(...)
+
+path<...>
+
+path::<...>, method::<...>
+
+fn ident<...> ...
+
+struct ident<...> ...
+
+enum ident<...> ...
+
+impl<...> ...
+
+for<...> type
+
+type<ident=type>
+
+T: U
+
+T: 'a
+
+T: 'static
+
+'b: 'a
+
+T: ?Sized
+
+'a + trait, trait + trait
+
+#[meta]	Outer attribute
+#![meta]	Inner attribute
+$ident	Macro substitution
+$ident:kind	Macro metavariable
+$(...)...	Macro repetition
+ident!(...), ident!{...}, ident![...]	Macro invocation
+
+()	Empty tuple (aka unit), both literal and type
+(expr)	Parenthesized expression
+(expr,)	Single-element tuple expression
+(type,)	Single-element tuple type
+(expr, ...)	Tuple expression
+(type, ...)	Tuple type
+expr(expr, ...)	Function call expression; also used to initialize tuple structs and tuple enum variants
+
+{...}	Block expression
+Type {...}	Struct literal
+
+[...]	Array literal
+[expr; len]	Array literal containing len copies of expr
+[type; len]	Array type containing len instances of type
+expr[expr]	Collection indexing; overloadable (Index, IndexMut)
+expr[..], expr[a..], expr[..b], expr[a..b]	Collection indexing pretending to be collection slicing, using Range, RangeFrom, RangeTo, or RangeFull as the “index”
