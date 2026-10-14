@@ -19,20 +19,20 @@ _                    // type constructor, got concrete type by substitutingin th
 as                   // let x: u32 = 123 -> let x = 123 as u32, to turn primitive types into other primitive types, turning pointers into addresses, addresses into pointers, and pointerns into other pointers.
 async                // Returns a Future instead of blocking the current thread. Use async in front of fn, closure, or a block to turn the marked code into a Future. When the returned future is .awaited.
 await                // Suspend execution until the result of a Future is ready. .awaiting a future will suspend the current function’s execution until the executor has run the future to completion.
-break
-const
-continue
+break                // Exit early from a loop or labelled block. When break is encountered, execution of the associated loop body is immediately terminated.
+const                // Any constant value can be defined in a const , which in practice happens to be most things that would be reasonable to have in a constant (barring const fn s).
+continue             // When continue is encountered, the current iteration is terminated, returning control to the loop head, typically continuing with the next iteration.
 crate                // Crate keyword is as a part of extern crate declarations, which are used to specify a dependency on a crate external to the one it’s declared in.
 dyn                  // dyn is a prefix of a trait object’s type. As such, a dyn Trait reference contains two pointers. One pointer goes to the data (e.g., an instance of a struct). Another pointer goes to a map of method call names to function pointers (known as a virtual method table or vtable).
-else
-enum
-extern
-false
+else                 // else is similar to other languages. Unlike many of them, the boolean condition doesn't need to be surrounded by parentheses, and each condition is followed by ...
+enum                 // The enum keyword allows the creation of a type which may be one of a few different variants. Any variant which is valid as a struct is also valid in an enum.
+extern               // extern is used in two different contexts within FFI. The first is in the form of external blocks, for declaring function interfaces that Rust code can call foreign code by. Asserting to the compiler that all func declaration are correct. If not, using these items may lead to undefined behavior.
+false                // bool representing logical false.
 fn                   // A function or function pointer. 
-for
-if
+for                  // used in for-in-loops, when implementing traits "impl Trait for Type". used for higher-ranked trait bounds as in for<'a> &'a T: PartialEq<i32>.
+if                   // if-else conditionals are expressions, and, all branches must return the same type. if 1 == 2. Some(x) if x > 200. if let Some(x) = Some(123), similarly match Some(123). let greeting = if rude. if let Ok(x) = "123".parse::<i32>()
 impl                 // Implementations of functionality for a type, or a type implementing some functionality. An impl block is an item that is used to implement some functionality for a type. An impl Trait in a type-position can be used to designate a type that implements a trait called Trait.
-in
+in                   // for _ in 1..3 {}, for _ in 1..=3 {}, pub(in crate::outer_mod) fn outer_mod_visible_fn() {}
 let                  // Bind a value to a variable. used to introduce a new set of variables into the current scope, as given by a pattern.
 loop                 // Loop is used to define the simplest kind of loop supported in Rust. It runs the code inside it until the code uses break or the program exits.
 match                // Match can be used to run code conditionally. Every pattern must be handled exhaustively either explicitly or by using wildcards like _ in the match. Since match is an expression, values can also be returned.
@@ -41,19 +41,24 @@ move                 // Move converts any variables captured by reference or mut
 mut                  // Mut can be used in several situations. The first is mutable variables, which can be used anywhere you can bind a value to a variable name.
 pub                  // Make an item visible to others.
 ref                  // Bind by reference during pattern matching. ref annotates pattern bindings to make them borrow rather than move. It is not a part of the pattern as far as matching is concerned: it does not affect whether a value is matched, only how it is matched.
-return
-self                 // The receiver of a method, or the current module. self is used in two situations: referencing the current module and marking the receiver of a method. In paths, self can be used to refer to the current module, either in a use statement or in a path to access an element
-Self                 // 
-static
-struct
+return               // return 3; 3, return Err("oh no!"), return 15; assert_eq!(foo(), 15)
+self                 // The receiver of a method, or the current module. self is used in two situations: referencing the current module and marking the receiver of a method. In paths, self can be used to refer to the current module, either in a use statement or in a path to access an element. Is reserved name for the receiever variable.
+Self                 // Is type name. Is reserved alias name for the implementing type. 
+&self                // self: &Self
+&Self                // Self: &self
+&self => self: "struct name" // &self, &mut self
+&Self => self: "struct name" // &self, &mut self
+Self::               // Can be used to call static function i.e., Self::hello()
+static               // statics are notably different in that they represent a location in memory. That means that you can have references to static items and potentially even modify them, making them essentially global variables. Static items cannot be moved. Simple statics - read only. Mutable statics - (cause data races in multithreaded context, require unsafe block), better use Mutex, OnceLock or atomic. can be used to represent global state shared by the whole program or in extern blocks to bind to variables from C libraries.
+struct               // A struct’s name should describe the significance of the pieces of data being grouped together
 super                // The parent of the current module. It is also possible to use super multiple times: super::super::foo, going up the ancestor chain.
 trait                // A trait is like an interface that data types can implement. When a type implements a trait it can be treated abstractly as that trait using generics or trait objects.
-true
+true                 // bool representing logical true.
 type                 // Define an alias for an existing type. The syntax is type Name = ExistingType;.
 unsafe               // Code or interfaces whose memory safety cannot be verified by the type system. To declare the existence of contracts the compiler can’t check, and to declare that a programmer has checked that these contracts have been upheld.
 use                  // Import or rename items from other crates or modules, use values under ergonomic clones semantic, or specify precise capturing with use<..>.
 where                // Add constraints that must be upheld to use an item. Where allows specifying constraints on lifetime and generic parameters. The RFC introducing where contains detailed information about the keyword.
-while
+while                // The while keyword can be used to run a loop while a condition is true.
 
 /* ADDED KEYWORDS */
 async
