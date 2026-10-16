@@ -96,6 +96,9 @@ AsyncFn*() -> T
 Fn*() -> Fut
 Future<Output = T>
 
+// crate
+
+  
 fn main() {};
   
 u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, char, bool
@@ -117,7 +120,15 @@ fn f<const N: usize>(x: [u8; N]) -> [u8; _] { x };
 fn bar<const N: usize>() -> Foo<{ N }> { todo!() }; // ok
 fn needs_bar(_: impl Bar) {};
 fn generic<const B: bool>() {};
+
+fn foo<T>(arg: T) {...};
+
 fn foo<'a, T>() {};
+trait A<U> {}
+struct Ref<'a, T> where T: 'a { r: &'a T }
+struct InnerArray<T, const N: usize>([T; N]);
+struct EitherOrderWorks<const N: bool, U>(U);
+
 fn f<const N: usize>(x: [u8; N]) -> [u8; _] { x };
 //                                       ^ ERROR not allowed
 fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {};
@@ -135,6 +146,28 @@ where
 #[derive(MyFlexibleClone)]
 struct Foo<#[my_flexible_clone(unbounded)] H> {
     a: *const H
+}
+
+fn print_like(thing: &str) {
+    println!("I like {thing}!")
+}
+
+// Need to change the function name
+// So it doesn't clash with print_like
+fn print_like_u32(thing: u32) {
+    println!("I like {thing}!")
+}
+
+use std::fmt::Display;
+fn print_like<T: Display>(thing: T) {
+    println!("I like {thing}!")
+}
+// OR
+fn print_like<T>(thing: T)
+where
+    T: Display,
+{
+    println!("I like {thing}!")
 }
 
 Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters ) {
