@@ -100,6 +100,21 @@ Start := XID_Start, plus the underscore character (U+005F)
 Continue := XID_Continue
 Medial := empty
 
+Lexer
+IDENTIFIER_OR_KEYWORD → ( XID_Start | _ ) XID_Continue*
+
+XID_Start → <XID_Start defined by Unicode>
+
+XID_Continue → <XID_Continue defined by Unicode>
+
+RAW_IDENTIFIER → r# IDENTIFIER_OR_KEYWORD
+
+NON_KEYWORD_IDENTIFIER → IDENTIFIER_OR_KEYWORDexcept a strict or reserved keyword
+
+IDENTIFIER → NON_KEYWORD_IDENTIFIER | RAW_IDENTIFIER
+
+RESERVED_RAW_IDENTIFIER → r# ( _ | crate | self | Self | super ) !XID_Continue
+
 /* Identifiers are restricted to the ASCII subset of XID_Start and XID_Continue in the following situations */
 extern crate declarations (except the AsClause identifier)
 External crate names referenced in a path
