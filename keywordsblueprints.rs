@@ -1,24 +1,40 @@
 // as keyword
 let thing1: u8 = 89.0 as u8;
-let x = 123 as u32
-let x: u32 = 123
+
+let x = 123 as u32;
+
+let x: u32 = 123;
+
 assert_eq!('B' as u32, 66);
+
 assert_eq!(thing1 as char, 'Y');
+
 let thing2: f32 = thing1 as f32 + 10.5;
+
+let val = 1.0;
+let thing3 = &val as *const f64;
+unsafe { println!("The val is: {}", *thing3); }
+
 assert_eq!(true as u8 + thing2 as u8, 100);
+
 (From) u8, bool, str, *ptr, *const T, *mut T, &my, &mut my, String, Vec as (Into) u8, bool, str, *ptr, *const T, *mut T, &my, &mut my, String, Vec
-let thing3: u32 as *const _;
-let thing3: u32 = 89.0 as *const _;
-let thing3 = 89.0 as *const _;
-let thing3: u32 as *mut _;
-let thing3: u32 = 89.0 as *mut _;
-let thing3 = 89.0 as *mut _;
+
+as *const _;
+
+as *mut _;
+
 use std::{mem as memory, net as network};
+
 extern crate std::{mem as memory, net as network};
+
 Into::<u32>::into
+
 Into::<u64>::into
+
 <MyThing as Into<u32>>::into(my_thing)
+
 T::from(my_thing)
+
 Into::into
 
 // async/await keyword
@@ -80,8 +96,12 @@ AsyncFn*() -> T
 Fn*() -> Fut
 Future<Output = T>
 
+fn main() {};
+  
 u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, char, bool
-const async extern let move mut pub static
+const async extern let move mut pub static;
+var;
+
 const fn IDENTIFIER<const N: i64>() {}; 
 const fn IDENTIFIER<const N: usize>() -> [u8; {N + 1}] {}; 
 async fn IDENTIFIER<const N: i64>() {}; 
@@ -98,8 +118,24 @@ fn bar<const N: usize>() -> Foo<{ N }> { todo!() }; // ok
 fn needs_bar(_: impl Bar) {};
 fn generic<const B: bool>() {};
 fn foo<'a, T>() {};
-fn f<const N: usize>(x: [u8; N]) -> [u8; _] { x }
+fn f<const N: usize>(x: [u8; N]) -> [u8; _] { x };
 //                                       ^ ERROR not allowed
+fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {};
+
+struct A<T>
+where
+    T: Iterator,            // Could use A<T: Iterator> instead
+    T::Item: Copy,          // Bound on an associated type
+    String: PartialEq<T>,   // Bound on `String`, using the type parameter
+    i32: Default,           // Allowed, but not useful
+{
+    f: T,
+}
+
+#[derive(MyFlexibleClone)]
+struct Foo<#[my_flexible_clone(unbounded)] H> {
+    a: *const H
+}
 
 Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters ) {
   FunctionReturnType WhereClause
@@ -107,6 +143,12 @@ Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters 
 }
 
 FunctionQualifiers -> const async ItemSafety ( extern Abi ) BARDZO WAŻNE
+
+GenericParams -> < ( GenericParam ( , GenericParam )* ,  ) >
+GenericParam -> OuterAttribute* ( LifetimeParam | TypeParam | ConstParam )
+LifetimeParam -> Lifetime ( : LifetimeBounds )
+TypeParam -> IDENTIFIER ( : Bounds ) ( = Type )
+ConstParam -> const IDENTIFIER : Type ( = ( BlockExpression | IDENTIFIER | - LiteralExpression ) )
 
 ItemSafety -> safe | unsafe                                 BARDZO WAŻNE
 
@@ -124,3 +166,13 @@ TypedSelf -> mut self : Type
 FunctionParamPattern -> PatternNoTopAlt : ( Type | ... )
 
 FunctionReturnType -> Type
+
+WhereClause → where ( WhereClauseItem , )* WhereClauseItem?
+
+WhereClauseItem →
+      LifetimeWhereClauseItem
+    | TypeBoundWhereClauseItem
+
+LifetimeWhereClauseItem → Lifetime : LifetimeBounds?
+
+TypeBoundWhereClauseItem → ForLifetimes? Type : Bounds?
