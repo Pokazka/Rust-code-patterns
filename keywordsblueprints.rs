@@ -94,9 +94,64 @@ F: Fn*() -> T, T: Future<Output = U>
 Option::map
 AsyncFn*() -> T
 Fn*() -> Fut
-Future<Output = T>
+Future<Output = T>;
+
+// await
+
+fn main() -> Result<(), Error> {
+  let mut exec = fasync::Executor::new().context("")?;
+  let wlan_svc = connect_to_service::<DeviceServiceMarker>()
+    .context("")?;
+  Opt::Phys(cmd) => do_phy(cmd, wlan_svc) await?,
+};
+
+async fn do_phy(cmd: opts::PhyCmd, wlan_svc: WlanSvc) -> Result<(), Error> {
+  let response = wlan.svc.list_phys() await?
+    .context("")?;
+  let mut req = wlan_service::QueryPhyRequest { phys_id };
+  let response = wlan_svc.query_phy(&mut req) await?
+    .context("")?;
+};
+
+pub fn start() {
+  spawn_local(async {
+    let x = delay_str("Hi!").await;
+    assert_eq!(x, "Hi!");
+  })
+};
+
+async fn delay_str(s: &str) -> String {
+  let val = Value::from(s);
+  let future = Future::from(sys::Promise::resolve(&val));
+  future.await
+    .expect("");
+    .as_string()
+    .expect("");
+}
 
 // crate
+
+#![crate_name = "projx"]
+#![crate_type = "lib"]
+#![warn(non_camel_case_types)]
+
+fn main() -> ! {
+  std::process::exit(0);
+}
+
+fn main() -> impl std::process::Termination {
+  std::process::ExitCode::SUCCESS
+  std::process::Infallible::SUCCESS
+}
+
+mod foo {
+  pub fn bar() {
+    println!("Hello, world!");
+  }
+}
+use foo::bar as main;
+
+Result<T, E> where T: Termination, E: Debug
 
   
 fn main() {};
@@ -147,6 +202,45 @@ where
 struct Foo<#[my_flexible_clone(unbounded)] H> {
     a: *const H
 }
+
+fn largest<T: PartialOrd + Copy>(items: &[T]) -> T {
+    let mut max = items[0];
+    for &item in items {
+        if item > max {
+            max = item;
+        }
+    }
+    max
+}
+fn main() {
+    println!("{}", largest(&[3, 9, 2]));       // T = i32
+    println!("{}", largest(&[1.5, 0.2, 7.1])); // T = f64
+}
+
+fn show_sum<T, U>(a: T, b: U) -> String
+where
+    T: std::ops::Add<U>,
+    T::Output: std::fmt::Display,
+{
+    format!("{}", a + b)
+}
+
+fn print_all(items: impl IntoIterator<Item = impl std::fmt::Debug>) {
+    for i in items { println!("{:?}", i); }
+}
+
+let x = "42".parse::<i32>().unwrap();
+
+fn sum_array<const N: usize>(arr: [i32; N]) -> i32 {
+    arr.iter().sum()
+}
+
+fn longer<'a, T: AsRef<str>>(a: &'a T, b: &'a T) -> &'a T {
+    if a.as_ref().len() >= b.as_ref().len() { a } else { b }
+}
+
+fn f<T: Trait>(x: T) {};
+fn f(x: &dyn Trait) {};
 
 fn print_like(thing: &str) {
     println!("I like {thing}!")
