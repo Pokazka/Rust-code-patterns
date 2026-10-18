@@ -153,7 +153,81 @@ use foo::bar as main;
 
 Result<T, E> where T: Termination, E: Debug
 
-  
+// dyn
+
+dyn Trait; // Trait object
+&dyn Trait; // borrowed trait object
+&mut dyn Trait; // &mut is primarily a guarantee that this is exclusive access, and only the current exclusive owner of this object/variable can use it.
+A<dyn Trait>; // owned trait object
+
+trait Good {
+    fn method(&self);                    // OK
+    fn by_box(self: Box<Self>);          // OK
+    fn by_rc(self: Rc<Self>);            // OK
+    // Opt-out: available on concrete types, not on dyn
+    fn clone_me(&self) -> Self
+    where
+        Self: Sized;
+}
+trait Bad {
+    fn returns_self(&self) -> Self;      // not dyn-compatible
+    fn generic<T>(&self, x: T);          // not dyn-compatible
+    fn static_method() -> i32;           // no receiver → not dyn-compatible
+}
+
+trait Animal {
+    fn noise(&self) -> &'static str;
+}
+struct Sheep;
+struct Cow;
+impl Animal for Sheep {
+    fn noise(&self) -> &'static str { "baaaaah!" }
+}
+impl Animal for Cow {
+    fn noise(&self) -> &'static str { "moooooo!" }
+}
+// Returning a trait object
+fn random_animal(n: f64) -> Box<dyn Animal> {
+    if n < 0.5 {
+        Box::new(Sheep)
+    } else {
+        Box::new(Cow)
+    }
+}
+// Heterogeneous collection
+fn main() {
+    let animals: Vec<Box<dyn Animal>> = vec![
+        Box::new(Sheep),
+        Box::new(Cow),
+    ];
+
+    for a in animals {
+        println!("{}", a.noise());
+    }
+}
+
+// Borrowed
+fn talk(a: &dyn Animal) { ... }
+// Owned
+fn take_ownership(a: Box<dyn Animal>) { ... }
+// With auto traits
+Box<dyn Animal + Send + Sync>
+Arc<dyn Animal + Send + Sync>
+// Lifetime
+&'a dyn Animal
+Box<dyn Animal + 'static>
+
+trait Iterator {
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+// Must write:
+Box<dyn Iterator<Item = i32>>
+
+
+
+
+
 fn main() {};
   
 u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, char, bool
@@ -263,6 +337,25 @@ where
 {
     println!("I like {thing}!")
 }
+
+struct Bar {
+  value: i32,
+}
+fn get_value<'a>(my_bar: &'a Bar) -> &'a i32 {
+  &my_bar.value
+}
+
+fn foo<'outer, 'inner: 'outer>(value: &'outer &'inner i32);
+
+let x = 1;
+let y = &x;
+let z = &y;
+foo(z);
+
+
+
+
+
 
 Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters ) {
   FunctionReturnType WhereClause
