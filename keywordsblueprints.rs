@@ -231,23 +231,39 @@ Box<dyn Iterator<Item = i32>>
 fn main() {};
   
 u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, char, bool
+
 const async extern let move mut pub static;
+
 var;
 
 const fn IDENTIFIER<const N: i64>() {}; 
+
 const fn IDENTIFIER<const N: usize>() -> [u8; {N + 1}] {}; 
+
 async fn IDENTIFIER<const N: i64>() {}; 
+
 extern fn IDENTIFIER<const N: i64>() {}; 
+
 fn foo<const N: usize>(arr: [i32; N]) {}; 
+
 fn first((value, _): (i32, i32)) -> i32 { value };
+
 fn foo<const N: usize>() {};
+
 fn bad_function<const N: usize>() -> [u8; {N + 1}] {};
+
 fn f<const N: i64>() -> S<N> { S };
+
 fn make_buf<const N: usize>() -> [u8; N] {};
+
 fn f<const N: usize>() -> [u8; N] { [0; _] };
+
 fn f<const N: usize>(x: [u8; N]) -> [u8; _] { x };
+
 fn bar<const N: usize>() -> Foo<{ N }> { todo!() }; // ok
+
 fn needs_bar(_: impl Bar) {};
+
 fn generic<const B: bool>() {};
 
 fn foo<T>(arg: T) {...};
@@ -353,8 +369,46 @@ let z = &y;
 foo(z);
 
 
+let 
+async;
+const;
+crate;
+dyn;
+extern;
+impl;
+loop;
+match;
+mod;
+move;
+mut;
+pub;
+ref;
+static;
+struct;
+super;
+trait;
+type;
+safe;
+unsafe;
+use;
+where;
 
+struct Foo {
+    a: u8,
+    b: u32,
+    c: bool,
+}
 
+enum Bar {
+    X(u32),
+    Y(bool),
+}
+
+struct Unit;
+
+let foo = Foo { a: 0, b: 1, c: false };
+let bar = Bar::X(0);
+let empty = Unit;
 
 
 Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters ) {
@@ -362,37 +416,112 @@ Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters 
   ( BlockExpression | ; )
 }
 
+const fn i<>() {};
+async fn i<>() {};
+extern fn i<>() {};
+
+
+
 FunctionQualifiers -> const async ItemSafety ( extern Abi ) BARDZO WAŻNE
 
+
+   
 GenericParams -> < ( GenericParam ( , GenericParam )* ,  ) >
 GenericParam -> OuterAttribute* ( LifetimeParam | TypeParam | ConstParam )
 LifetimeParam -> Lifetime ( : LifetimeBounds )
 TypeParam -> IDENTIFIER ( : Bounds ) ( = Type )
 ConstParam -> const IDENTIFIER : Type ( = ( BlockExpression | IDENTIFIER | - LiteralExpression ) )
 
+<T>(x1: &Vec<T>) -> f32;
+T: Into::<i32> + P<i32> + std::fmt::Debug,
+(x1 : &Vec<i32>) -> f32 {};
+P::<f32>();
+fn F[T any](param T) T {};
+<u32, _>;
+<const N: i64>;
+<const T: u32>([i32; N]);
+<const T: u32, const N: i32>;
+<const N: usize> Foo<N>;
+<const N: usize> Trait for Foo<N> {};
+<const N: usize>() -> [u8; {N + 1}] {};
+<const N: i64>() -> S<N> { S }
+<const N: usize>() -> [u8; N]
+<'a, T: AsRef<str>>(a: &'a T, b: &'a T) -> &'a T
+<T: PartialOrd + Copy>(items: &[T]) -> T 
+<T, U>(a: T, b: U) -> String;
+<*ptr=data, &mut>;
+<T: U>(f: &mut std::fs::File) -> T;
+std::mem::transmutate::<[u8; 4], u32>(bytes);
+Foo<{N}> { todo!() };
+<'a, T>() {}
+<U> {};
+<'a, T> where T: 'a { r: &'a T };
+<T, const N: usize>([T; N]);
+<const N: bool, U>(U);
+[u8; 1024] = make_buf::<_>();
+f::<1>();
+f::<-1>();
+f::<{ 1 + 2 }>();
+f::<C>();
+f::<{ C + 1 }>();
+S<1> = f::<_>();
+S<1> = f::<(((_)))>();
+<const N: usize>() -> [u8; N] { [0; _] };
+[u8; 1024] = m::<_>();
+
+
+
 ItemSafety -> safe | unsafe                                 BARDZO WAŻNE
 
+
+
+
 Abi -> STRING_LITERAL | RAW_STRING_LITERAL                  BARDZO WAŻNE
+
+macro_rules! blackhole { ($tt:tt) => () }
+blackhole!("string"suffix); // OK
+r#""#;
+let p: &'static str = "";
+string.push_str(", ");
+let c: &[char] = &[' ', ','];
+let t: &str = string.trim(c);
+println!("Used characters: {}", t);
+
 
 FunctionParameters -> SelfParam ,
   | ( SelfParam , ) functionParam ( , FunctionParam )* ,
 
+
+
+
 SelfParam -> OuterAttribute* ( ShorthandSelf | TypedSelf )  BARDZO WAŻNE
+
+
+
 
 ShorthandSelf -> ( & | & Lifetime ) mut self
 
+                  
 TypedSelf -> mut self : Type
 
+                  
 FunctionParamPattern -> PatternNoTopAlt : ( Type | ... )
 
+                  
 FunctionReturnType -> Type
 
+                  
 WhereClause → where ( WhereClauseItem , )* WhereClauseItem?
 
+                  
 WhereClauseItem →
       LifetimeWhereClauseItem
     | TypeBoundWhereClauseItem
 
+                  
 LifetimeWhereClauseItem → Lifetime : LifetimeBounds?
 
+                  
 TypeBoundWhereClauseItem → ForLifetimes? Type : Bounds?
+
+                  
