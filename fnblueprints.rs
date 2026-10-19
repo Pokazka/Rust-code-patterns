@@ -84,13 +84,59 @@ fn to_token_stream(&self) -> TokenStream
 fn into_token_stream(self) -> TokenStream
 where
   Self: Sized,
-impl !Send for GenericParam
-impl !Sync for GenericParam
-impl Freeze for GenericParam
-impl RefUnwindSafe for GenericParam
-impl Unpin for GenericParam
-impl UnsafeUnpin for GenericParam
-impl UnwindSafe for GenericParam
+impl !Send for GenericParam;
+impl !Sync for GenericParam;
+impl Freeze for GenericParam;
+impl RefUnwindSafe for GenericParam;
+impl Unpin for GenericParam;
+impl UnsafeUnpin for GenericParam;
+impl UnwindSafe for GenericParam;
+impl<T> Any for T
+  where
+  T: 'static + ?Sized,
+fn type_id(&self) -> TypeId;
+fn type_id(&self) -> self;
+impl<T> Borrow<T> for T
+  where
+  T: ?Sized,
+fn borrow(&self) -> &T;
+impl <T> BorrowMut<T> for T
+  where
+  T: ?Sized,
+fn borrow_mut(&mut self) -> &mut T;
+impl<T> CloneToUninit for T
+  where
+  T: Clone,
+unsafe fn clone_to_uninit(&self, dest: *mut u8);
+impl<T> From<T> for T;
+fn from(t: T) -> T;
+impl<T, U> Into<U> for T
+  where
+  U: From<T>,
+fn into(self) -> U
+  U::from(self)
+  From<T> for U,
+impl<T> Spanned for T
+  where
+  T: Spanned + ?Sized,
+fn span(&self) -> Span
+  Span::call_site(),
+impl<T> ToOwned for T
+  where
+  T: Clone,
+type Owned = T;
+fn to_owned(&self) -> T;
+fn clone_into(&self, target: &mut T);
+impl<T, U> TryFrom<U> for T
+  where
+  U: Into<T>
+type Error = !
+fn try_from(value: U) -> Result<T, !>
+impl<T, U> TryInto<U> for T
+  where
+  U: TryFrom<T>
+type Error = <U as TryFrom<T>>::Error
+fn try_into(self) -> Result<U, <U as TryFrom<T>>::Error>
 
 
 ItemSafety -> safe | unsafe                                 BARDZO WAŻNE
