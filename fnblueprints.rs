@@ -3,7 +3,7 @@ Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters 
   ( BlockExpression | ; )
 }
 
-const fn i<>() {};
+const fn i<[]>[](... -> [], []) -> [] {};
 async fn i<>() {};
 extern fn i<>() {};
 
