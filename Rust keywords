@@ -36,7 +36,7 @@ in                   // for _ in 1..3 {}, for _ in 1..=3 {}, pub(in crate::outer
 let                  // Bind a value to a variable. used to introduce a new set of variables into the current scope, as given by a pattern.
 loop                 // Loop is used to define the simplest kind of loop supported in Rust. It runs the code inside it until the code uses break or the program exits.
 match                // Match can be used to run code conditionally. Every pattern must be handled exhaustively either explicitly or by using wildcards like _ in the match. Since match is an expression, values can also be returned.
-mod                  // Use mod to create new modules to encapsulate code, including other modules
+mod                  // Use mod to create new modules to encapsulate code, including other modules. Like structs and enums, a module and its content are private by default, inaccessible to code outside of the module.
 move                 // Move converts any variables captured by reference or mutable reference to variables captured by value.
 mut                  // Mut can be used in several situations. The first is mutable variables, which can be used anywhere you can bind a value to a variable name.
 pub                  // Make an item visible to others.
