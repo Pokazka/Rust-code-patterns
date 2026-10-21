@@ -9,6 +9,16 @@ pub struct PublicThing {
     pub(crate) semi_secret_thing: bool,
 }
 
+// 1. Absolute path starting from the current crate root
+use crate::utils::helper;
+
+// 2. Visibility restricted to the current crate
+pub(crate) fn internal_helper() { ... }
+
+// 3. (Older style) declaring an external crate
+extern crate rand;          // rarely needed since Rust 2018
+extern crate my_crate as mc;
+
 /// dyn
 struct Sheep {}
 struct Cow {}
