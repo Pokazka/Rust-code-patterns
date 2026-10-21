@@ -3,17 +3,15 @@ Function -> FunctionQualifiers fn IDENTIFIER GenericParams ( FunctionParameters 
   ( BlockExpression | ; )
 }
 
-const fn i<[]>[](... -> [], []) -> [] {};
-async fn i<>() {};
-extern fn i<>() {};
+const fn i<[<>]>[<>](...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
+async fn i<[<>]>[<>](...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
+extern fn i<[<>]>[<>](...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
+
 
 
 
 FunctionQualifiers -> const async ItemSafety ( extern Abi ) BARDZO WAŻNE
 
-const ( extern Abi )
-async ( extern Abi )
-  
 
 
    
