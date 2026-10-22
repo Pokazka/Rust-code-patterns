@@ -1,3 +1,72 @@
+#[name]
+#[name = value]
+#[name(content)]
+#[name(key = value, ...)]
+
+#[test]
+#[doc = "hello"]
+#[allow(dead_code)]
+#[link(name = "mylib", kind = "static")]
+#[something()]
+#[derive(Debug, Clone)]
+#[allow(unused_variables)]
+#[cfg(target_os = "linux")]
+#[test]
+#[inline(always)]
+#[path = "my_module.rs"]
+#[doc = "This is documentation"]
+#[my_attribute]
+#[my_attribute()]
+#[my_attribute(value)]
+#[my_attribute(key = "value")]
+#[some_attr()] // ✅ Only valid if `some_attr` accepts an empty list
+
+println!, print!, eprintln!
+format!, write!, writeln!
+vec!
+assert!, assert_eq!, debug_assert!
+panic!, todo!, unimplemented!
+include_str!, include_bytes!
+cfg!, env!, option_env!
+stringify!, concat!
+
+mymacro! (...);
+
+#[derive(Debug, Clone)]
+
+#[route(GET, "/")]
+
+// Example of using a derive macro
+#[derive(Debug, Clone, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+
+
+
+// Simple example: a macro that creates a vector
+macro_rules! my_vec {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_vec = Vec::new();
+            $(
+                temp_vec.push($x);
+            )*
+            temp_vec
+        }
+    };
+}
+
+fn main() {
+    let v = my_vec![1, 2, 3, 4];
+    println!("{:?}", v); // [1, 2, 3, 4]
+}
+
+
+
+
 #[macro_export]
 
 ( $( $x:expr ),* )
