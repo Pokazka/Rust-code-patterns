@@ -47,14 +47,17 @@ pub unsafe fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...
   lock: &Mutex<Stan>,              // współdzielenie
   a: &AtomicUsize,                 // atomik
   cb: extern "C" fn(*mut c_void),  // callback do C
-  fn a(self)               // przejmuje obiekt
-  fn b(&self)              // odczyt
-  fn c(&mut self)          // zapis
-  fn d(mut self)           // przejmuje, mutowalny
-  fn e(self: Box<Self>)    // przejmuje z pudełka
-  fn f(self: Pin<&mut Self>) // przypięty (async, intrusive)
-  fn g(self: &Rc<Self>)    // inne formy odbiorcy
 };
+
+impl Foo {
+    fn a(self)               // przejmuje obiekt
+    fn b(&self)              // odczyt
+    fn c(&mut self)          // zapis
+    fn d(mut self)           // przejmuje, mutowalny
+    fn e(self: Box<Self>)    // przejmuje z pudełka
+    fn f(self: Pin<&mut Self>) // przypięty (async, intrusive)
+    fn g(self: &Rc<Self>)    // inne formy odbiorcy
+}
 fn h() {}                    // brak self: funkcja "statyczna"
 
 fn a(var: bool, num: Option<i32>) {
