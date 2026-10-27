@@ -13,6 +13,50 @@ pub async fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<
 pub extern fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
 pub unsafe fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
 
+{
+  a: u32,
+  b: &Dane,
+  c: &mut Dane,
+  mut d: u32,
+  e: Box<Dane>,
+  p: *const u8,        // surowy wskaźnik (odczyt)
+  q: *mut u8,          // surowy wskaźnik (zapis)
+  r: NonNull<u8>,      // niezerowy wskaźnik
+  addr: VirtAddr,      // newtype na adres
+  t: [u8; 16],         // tablica o stałym rozmiarze (kopiowana)
+  t2: &[u8; 16],       // referencja do tablicy
+  s: &[u8],            // slice: wskaźnik + długość
+  s2: &mut [u8],       // slice do zapisu
+  txt: &str,           // napis (slice UTF-8)
+  (x, y): (i32, i32),              // krotka
+  Point { x, y }: Point,           // struktura
+  &[a, b]: &[u8; 2],               // tablica
+  &n: &u32,                        // rozpakowanie referencji
+  _: u32,                          // parametr ignorowany
+  x: &'a T,            // jawny lifetime
+  buf: [T; N],         // stała generyczna (rozmiar w typie)
+  v: Vec<T>,
+  a: impl Display,             // dowolny typ implementujący trait (statycznie)
+  b: &dyn Display,             // obiekt trait (dynamicznie, vtable)
+  c: Box<dyn Fn(u32) -> u32>,  // domknięcie w pudełku
+  d: impl Fn(u32) -> u32,      // domknięcie statycznie
+  e: fn(u32) -> u32,           // zwykły wskaźnik na funkcję
+  reg: &mut Volatile<u32>,         // rejestr MMIO
+  page: Page<Mapped>,              // typestate
+  h: Handle,                       // uchwyt (indeks + generacja)
+  lock: &Mutex<Stan>,              // współdzielenie
+  a: &AtomicUsize,                 // atomik
+  cb: extern "C" fn(*mut c_void),  // callback do C
+  fn a(self)               // przejmuje obiekt
+  fn b(&self)              // odczyt
+  fn c(&mut self)          // zapis
+  fn d(mut self)           // przejmuje, mutowalny
+  fn e(self: Box<Self>)    // przejmuje z pudełka
+  fn f(self: Pin<&mut Self>) // przypięty (async, intrusive)
+  fn g(self: &Rc<Self>)    // inne formy odbiorcy
+};
+fn h() {}                    // brak self: funkcja "statyczna"
+
 fn a(var: bool, num: Option<i32>) {
     let num = num.unwrap_or(1);  // default = 1
 }
