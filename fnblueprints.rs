@@ -13,6 +13,74 @@ pub async fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<
 pub extern fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
 pub unsafe fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
 
+// [] 
+// Pytanie: “ile i gdzie leżą elementy?”
+// Poziom: układ danych i dostęp
+// Kiedy: typ + wartość + runtime (indeks)
+// Wynik: jeden konkretny typ lub operacja
+// Przykład: [u8; 4]
+// 1. TYP: tablica o stałym rozmiarze (rozmiar jest częścią typu)
+let a: [u8; 4] = [1, 2, 3, 4];
+
+// 2. TYP: slice (wskaźnik + długość, rozmiar nieznany w typie)
+let s: &[u8] = &a[1..3];
+
+// 3. WARTOŚĆ: literał tablicy
+let b = [0u8; 16];            // 16 zer
+let c = [10, 20, 30];
+
+// 4. OPERACJA: indeksowanie (z kontrolą zakresu)
+let x = a[2];                 // to wywołuje Index::index
+let part = &a[1..3];          // zakres daje slice
+
+// 5. WZORZEC: rozbieranie tablicy lub slice'a
+let [first, .., last] = a;
+if let [h, rest @ ..] = s { /* ... */ }
+
+// 6. ATRYBUTY: #[...] i #![...]
+#[repr(C)]
+#[derive(Clone, Copy)]
+struct S { x: u32 }
+
+// 7. MAKRA mogą używać dowolnych nawiasów
+let v = vec![1, 2, 3];
+
+// <>
+// Pytanie: “jakiego typu ma być to coś?”
+// Poziom: system typów
+// Kiedy: tylko compile time
+// Wynik: rodzina typów (monomorfizacja)
+// Przykład: Vec<u8>
+// 1. Typ generyczny
+let v: Vec<u32> = Vec::new();
+let o: Option<&str> = None;
+
+// 2. Definicja generyków: typ, lifetime, stała
+fn f<'a, T: Copy, const N: usize>(x: &'a T, buf: [T; N]) {}
+struct Wrapper<T> { inner: T }
+impl<T> Wrapper<T> { }
+
+// 3. Turbofish: jawne podanie typu przy wywołaniu
+let n = "42".parse::<u32>().unwrap();
+let v = Vec::<u8>::with_capacity(64);
+
+// 4. Ścieżka kwalifikowana: "typ T jako trait Tr"
+let x = <u32 as Default>::default();
+type Out = <I as Iterator>::Item;
+
+// 5. Ograniczenia
+fn g<T: Display + Clone>(t: T) {}
+fn h<F: Fn(u32) -> u32>(f: F) {}
+
+// Stała generyczna łączy oba światy: [] i <>
+struct Ring<T, const N: usize> {
+    buf: [T; N],        // [] mówi o układzie, N pochodzi z <>
+    head: usize,
+}
+let r: Ring<u32, 64> = /* ... */;
+
+// <> parametryzuje, [] używa tego parametru jako rozmiaru. Dla ciebie to ważne przy ring bufferach i buforach o stałym rozmiarze bez alokacji (no_std).
+
 {
   a: u32,              // przez wartość (move lub Copy)
   b: &Dane,            // pożyczka współdzielona (tylko odczyt)
