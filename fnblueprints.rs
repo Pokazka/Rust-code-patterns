@@ -151,6 +151,14 @@ fn a(params: Params) { ... }
 // Call with defaults
 a(Params { var: true, ..Default::default() });
 
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() { x } else { y }
+}
+
+struct Book<'a> {
+    title: &'a str,
+}
+
 
 
 
