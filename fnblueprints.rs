@@ -14,11 +14,11 @@ pub extern fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...
 pub unsafe fn i<[<>]>[<>](...: ...<>, ...: *...<>, ...: &...<>, ...: '...<>, ...<> -> [<>]<>, [<>]<>) -> [<>]<> {};
 
 {
-  a: u32,
-  b: &Dane,
-  c: &mut Dane,
-  mut d: u32,
-  e: Box<Dane>,
+  a: u32,              // przez wartość (move lub Copy)
+  b: &Dane,            // pożyczka współdzielona (tylko odczyt)
+  c: &mut Dane,        // pożyczka wyłączna (odczyt i zapis)
+  mut d: u32,          // wartość, ale lokalnie mutowalna
+  e: Box<Dane>,        // przejęcie własności ze sterty
   p: *const u8,        // surowy wskaźnik (odczyt)
   q: *mut u8,          // surowy wskaźnik (zapis)
   r: NonNull<u8>,      // niezerowy wskaźnik
