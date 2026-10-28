@@ -59,6 +59,7 @@ unsafe               // Code or interfaces whose memory safety cannot be verifie
 use                  // Import or rename items from other crates or modules, use values under ergonomic clones semantic, or specify precise capturing with use<..>.
 where                // Add constraints that must be upheld to use an item. Where allows specifying constraints on lifetime and generic parameters. The RFC introducing where contains detailed information about the keyword.
 while                // The while keyword can be used to run a loop while a condition is true.
+while let            //
 
 /* ADDED KEYWORDS */
 async
