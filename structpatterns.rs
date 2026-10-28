@@ -239,3 +239,25 @@ let Packet { name: _n, .. } = p;
 // p pożyczone wyłącznie do ostatniego użycia wiązań. W tym czasie nikt inny go nie odczyta.
 // Nic nie przeniesione: samo _ niczego nie wiąże, więc p zostaje całe.
 // Pułapka: _n to prawdziwe wiązanie (z podkreślnikiem w nazwie) i przenosi p.name.
+
+
+// Kopia: dostęp z known wyrównaniem 1
+#[repr(C, packed)]
+struct S { a: u8, b: u32 }
+
+let s = S { a: 1, b: 7 };
+let x = s.b;   // OK
+
+
+// Referencja: obietnica align(4) przekazana dalej
+let r: &u32 = &s.b;   // błąd E0793: reference to packed field is unaligned
+
+
+// Jak to robić poprawnie
+use core::ptr;
+
+let x = s.b;                       // kopia (Copy)
+let y = { s.b };                   // nawiasy wymuszają kopię też w makrach
+let p = ptr::addr_of!(s.b);        // *const u32, bez tworzenia referencji
+let v = unsafe { p.read_unaligned() };
+unsafe { (&raw mut s.b).write_unaligned(9) };  // nowsza składnia &raw
