@@ -1,0 +1,6 @@
+Address / Access / Pointer / Handle
+Fake Address - Virtual
+Real Address - Physical
+Access - read / modify / use
+Pointer - path to address
+Handle - access without address
