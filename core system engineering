@@ -4,3 +4,25 @@ Real Address - Physical
 Access - read / modify / use
 Pointer - path to address
 Handle - access without address
+
+
+
+
+Range Addresses - Range Pages
+Address Page
+Range virtual Addresses / Range physical Addresses
+Link to Address Page and Page contain next Page Address
+Page contain execute data / Page contain delivered data
+Page contain combine execute and delivered data divided two bytes at the beginning of mask
+Mask Page-0101101101001 execute-0101 1010101101010110101 delivered-1010 10101100110101010000101001 / page divided two equal parts / 2kb execute 2kb delivered
+Information about Page type three is hidden in mask Page
+
+
+
+
+One Page per one
+
+
+
+
+Range virtual Addresses Page / Range physical Addresses Page
