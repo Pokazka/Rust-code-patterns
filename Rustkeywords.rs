@@ -19,6 +19,7 @@ _                    // type constructor, got concrete type by substitutingin th
 as                   // let x: u32 = 123 -> let x = 123 as u32, to turn primitive types into other primitive types, turning pointers into addresses, addresses into pointers, and pointerns into other pointers.
 async                // Returns a Future instead of blocking the current thread. Use async in front of fn, closure, or a block to turn the marked code into a Future. When the returned future is .awaited.
 await                // Suspend execution until the result of a Future is ready. .awaiting a future will suspend the current function’s execution until the executor has run the future to completion.
+any                  // any data type and recognize if it compare to current type variable / function
 break                // Exit early from a loop or labelled block. When break is encountered, execution of the associated loop body is immediately terminated.
 const                // Any constant value can be defined in a const , which in practice happens to be most things that would be reasonable to have in a constant (barring const fn s).
 continue             // When continue is encountered, the current iteration is terminated, returning control to the loop head, typically continuing with the next iteration.
